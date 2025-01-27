@@ -37,16 +37,15 @@ export default class App extends React.Component {
 
     return (
       <ThemeProvider theme={theme}>
-        <Container>
           <GlobalStyle/>
           <ReactPianoStyle/>
           <CustomReactPiano />
           <Content>
+            <Logo>
+              <h1>A192</h1>
+            </Logo>
             <EnvelopePanel synth={this.synth} />
           </Content>
-          <Logo>
-            <h1>A192</h1>
-          </Logo>
           <Footer>
             <Piano
               noteRange={{ first: firstNote, last: lastNote }}
@@ -56,7 +55,6 @@ export default class App extends React.Component {
               keyboardShortcuts={keyboardShortcuts}
             />
           </Footer>
-        </Container>
       </ThemeProvider>
     );
   }

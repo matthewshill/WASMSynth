@@ -84,8 +84,8 @@ EMSCRIPTEN_BINDINGS(Voice) {
     .constructor<int, int>()
     .function("nextSample", &Voice::nextSample)
     .function("setEnvelope", &Voice::setEnvelope)
-    .function("setLevel", &Voice::setEnvelope)
-    .function("setStage", &Voice::setEnvelope)
-    .function("setWaveForm", &Voice::setEnvelope)
+    .function("setLevel", &Voice::setLevel)
+    .function("setStage", &Voice::setStage)
+    .function("setWaveForm", &Voice::setWaveform)
     .function("enableOscillator", &Voice::enableOscillator);
 }

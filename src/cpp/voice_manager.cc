@@ -70,7 +70,6 @@ vector<float> VoiceManager::nextSample(int bufferSize) {
     if (v->isActive) {
       vector<float> voiceSample = v->nextSample(bufferSize);
         for (int i = 0; i < bufferSize; i++) {
-          // TODO: Make total gain a UI element
           sample[i] += voiceSample[i] * 0.1;
         }
     }
