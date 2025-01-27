@@ -27,59 +27,59 @@ ADSRModulator::EnvelopeStage ADSRModulator::getStage() {
 }
 
 float ADSRModulator::modulate(float x) {
-    if(this->stage == ATTACK) {
-        float attack = pow(x / this->xa, 1.0 / 3.0f);
+    if (this->stage == ATTACK) {
+      float attack = pow(x / this->xa, 1.0f / 3.0f);
 
-        this->level = attack;
-        if(attack <= this->ya) {
-            this->xMax = x;
-            return attack;
-        } else{
-            setStage(DECAY);
-        }
-    }
-
-    if(this->stage == DECAY) {
-        float dx =((this->ys - 1) / this->xd) * (x - this->xa) + 1;
-        float dl = this->ys;
-        float du = DECAY_UPPER_LIMIT;
-        float gf = pow((dx - dl) / (du - dl), 3);
-        float decay = gf * (du - dl) + dl;
-
-        this->level = decay;
-        if(decay >= this->ys) {
-            this->xMax = x;
-            return decay;
-        } else {
-            this->sustainReached = true;
-            setStage(SUSTAIN);
-        }
-    }
-
-    if(this->stage == SUSTAIN) {
+      this->level = attack;
+      if (attack <= this->ya) {
         this->xMax = x;
-        this->level = this->ys;
-        return this->ys;
+        return attack;
+      } else {
+        setStage(DECAY); 
+      }
+    }
+  
+    if (this->stage == DECAY) {
+		  float dx = ((this->ys - 1) / this->xd) * (x - this->xa) + 1;
+		  float dl = this->ys;
+		  float du = DECAY_UPPER_LIMIT;
+		  float gf = pow((dx - dl) / (du - dl), 3);
+		  float decay = gf * (du - dl) + dl;
+      
+      this->level = decay;
+      if (decay >= this->ys) {
+        this->xMax = x;
+        return decay;
+      } else {
+        this->sustainReached = true;
+        setStage(SUSTAIN);
+      }
     }
 
-    if(this->stage == RELEASE) {
-        float rx = -1.0f * this->level / this->xr * (x - this->xMax) + this->level;
-		float rl = RELEASE_LOWER_LIMIT;
-        float ru = this->level;
-        float rf = pow((rx - rl) / (ru - rl), 3);
-        float release = rf * (ru - rl) + rl;
-        if(release > rl) {
-            return release;
-        } else {
-            this->xMax = 0.0;
-            this->level = 0.0;
-            this->sustainReached = false;
-            setStage(OFF);
-        }
+    if (this->stage == SUSTAIN) {
+      this->xMax = x;
+      this->level = this->ys;
+      return this->ys;
     }
 
+    if (this->stage == RELEASE) {
+		  float rx = -1.0f * this->level / this->xr * (x - this->xMax) + this->level;
+		  float rl = RELEASE_LOWER_LIMIT;
+      float ru = this->level;
+		  float rf = pow((rx - rl) / (ru - rl), 3);
+		  float release = rf * (ru - rl) + rl;
+      if (release > rl) {
+        return release;
+      } else {
+        this->xMax = 0.0;
+        this->level = 0.0;
+        this->sustainReached = false;
+        setStage(OFF);
+      }
+    }
+    
     if(this->stage == OFF) {
-        return 0.0;
+      return 0.0;
     }
 }
 

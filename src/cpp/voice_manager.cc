@@ -125,3 +125,4 @@ EMSCRIPTEN_BINDINGS(VoiceManager) {
     .function("updateWaveForm", &VoiceManager::updateWaveform)
     .function("enableOscillator", &VoiceManager::enableOscillator);
   emscripten::register_vector<float>("vector<float>");
+}

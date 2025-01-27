@@ -63,9 +63,9 @@ void Voice::setEnvelope(int i, EnvelopePreset envelope) {
     float c = Oscillator::frequencyConstant(this->key);
     m->setXA(c * envelope.xa / microseconds);
     m->setXD(c * envelope.xd / microseconds);
-    m->setYS(c * envelope.ys / microseconds);
+    m->setYS(envelope.ys);
     m->setXR(c * envelope.xr / microseconds);
-    m->setYA(c * envelope.ya / microseconds);
+    m->setYA(envelope.ya);
 }
 
 void Voice::setWaveform(int i , Oscillator::Waveform w) {

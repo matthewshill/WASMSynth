@@ -28,10 +28,6 @@ void Oscillator::setWaveform(Waveform w) {
     waveFrm = w;
 }
 
-vector<Point> Oscillator::nextSample(int key, int iteration, int bufferSize) {
-
-}
-
 float Oscillator::frequencyConstant(int key){
     return 2.0 * M_PI * pow(2.0, (key - 69.0) / 12.0) * 440.0;
 }
@@ -47,6 +43,18 @@ float Oscillator::digitalSquareWave(float x) {
 }
 
 float Oscillator::sinoidSawWave(float x, int factor) {
+  factor *= 2;
+  float y = 0.0;
+  for (int i = 1; i <= factor; ++i) {
+    // TODO: This might not be correct and we should remove the modulo opperation
+    if (i % 2 == 1) {
+      y += pow(-1, i) * (sin(x * i) / i);
+    }
+  }
+  return (1/2) - ((1/M_PI) * y);
+}
+
+float Oscillator::sinoidSquareWave(float x, int factor) {
     factor *= 2;;
     float y = 0.0;
     for(int i = 1; i <= factor; ++i) {
@@ -57,19 +65,8 @@ float Oscillator::sinoidSawWave(float x, int factor) {
     return y;
 }
 
-float Oscillator::sinoidSquareWave(float x, int factor) {
-        factor *= 2;;
-    float y = 0.0;
-    for(int i = 1; i <= factor; ++i) {
-        if(i % 2 == 1) {
-            y += pow(-1, i) * (sin(x*i) / i);
-        }
-    }
-    return (1/2) - ((1/M_PI * y)); 
-}
-
 float Oscillator::digitalSawWave(float x) {
-    return 2 * ((x / M_PI) - float(0.5 + (x / M_PI)));
+    return 2 * ((x / M_PI) - floor(0.5 + (x / M_PI)));
 }
 
 float Oscillator::digitalTriangleWave(float x) {
