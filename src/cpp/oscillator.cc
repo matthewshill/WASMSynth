@@ -76,7 +76,7 @@ float Oscillator::digitalTriangleWave(float x) {
 vector<Point> Oscillator::nextSample(int key, int iteration, int bufferSize) {
     vector<Point> buffer; 
     for(int i = 0; i <  bufferSize; ++i) {
-        float n = i * iteration * bufferSize;
+        float n = i + iteration * bufferSize;
         float f = frequencyConstant(key);
         float x = (n * f) / sampleRate;
         float y = 0.0;
