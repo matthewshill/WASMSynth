@@ -33,7 +33,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const maxWidth = Math.max*+(document.documentElement.clientWidth, window.innerWidth || 0) - theme.horizontalPadding;
+    const maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - theme.horizontalPadding;
 
     return (
       <ThemeProvider theme={theme}>
@@ -45,7 +45,7 @@ export default class App extends React.Component {
             <EnvelopePanel synth={this.synth} />
           </Content>
           <Logo>
-            
+            <h1>A192</h1>
           </Logo>
           <Footer>
             <Piano
